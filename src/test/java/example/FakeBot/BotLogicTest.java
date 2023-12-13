@@ -19,9 +19,8 @@ public class BotLogicTest extends TestCase {
         FakeBot fakeBot = new FakeBot();
         BotLogic botLogic = new BotLogic(fakeBot);
         User user = new User(1L);
-        botLogic.processCommand(user, "/test");
+        botLogic.processCommand(user, Constants.COMMAND_TEST);
         assertEquals(State.TEST, user.getState());
-
         assertEquals("Вычислите степень: 10^2", fakeBot.getMessages().get(0));
     }
 
@@ -29,12 +28,17 @@ public class BotLogicTest extends TestCase {
      * Тест на команду notify
      */
     @Test
-    public void testNotify() {
-        FakeBot fakeBot = new FakeBot();
+    public void testNotify() throws InterruptedException {
+        FakeBot fakeBot  = new FakeBot();
         BotLogic botLogic = new BotLogic(fakeBot);
         User user = new User(1L);
-        botLogic.processCommand(user, "/notify");
-        Assert.assertEquals("Введите текст напоминания", fakeBot.getMessages().get(0));
+        user.setState(State.SET_NOTIFY_TEXT);
+        botLogic.processCommand(user, "Первое напоминание");
+        assertNotNull(user.getNotification());
+        user.setState(State.SET_NOTIFY_DELAY);
+        botLogic.processCommand(user, "1");
+        Thread.sleep(2000);
+        assertEquals("Сработало напоминание: 'Первое напоминание'", fakeBot.getMessages().get(2));
     }
 
     /**
@@ -45,7 +49,9 @@ public class BotLogicTest extends TestCase {
         FakeBot fakeBot = new FakeBot();
         BotLogic botLogic = new BotLogic(fakeBot);
         User user = new User(1L);
-        botLogic.processCommand(user, "/repeat");
-        Assert.assertEquals("Нет вопросов для повторения", fakeBot.getMessages().get(0));
+        user.setState(State.REPEAT);
+        botLogic.processCommand(user, Constants.COMMAND_REPEAT);
+        assertEquals(State.REPEAT, user.getState());
+        assertEquals("Нет вопросов для повторения", fakeBot.getMessages().get(0));
     }
 }

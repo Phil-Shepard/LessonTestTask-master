@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Тесты на методы добавления и удаления класса Container
  */
-public class Test2 extends TestCase {
+public class ContainerTest extends TestCase {
     /**
      * Тест на методы добавления класса
      */

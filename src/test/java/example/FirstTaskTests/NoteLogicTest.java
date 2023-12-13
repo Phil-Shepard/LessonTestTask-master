@@ -1,4 +1,4 @@
-package example.tests;
+package example.FirstTaskTests;
 
 import example.note.NoteLogic;
 import junit.framework.TestCase;
@@ -8,8 +8,12 @@ import org.junit.Test;
 /**
  * тесты на класс NoteLogic
  */
-public class Test1 extends TestCase {
+public class NoteLogicTest extends TestCase {
 
+    /**
+     * тест для команды /add
+     * тест падает
+     */
     @Test
     public void testAddCommand() {
         NoteLogic noteLogic = new NoteLogic();
@@ -20,6 +24,10 @@ public class Test1 extends TestCase {
                 noteLogic.handleMessage("/notes"));
     }
 
+    /**
+     * Тест для команды /notes
+     * тест падает
+     */
     @Test
     public void testHandleMessageNotesCommand() {
         NoteLogic noteLogic = new NoteLogic();
@@ -30,6 +38,10 @@ public class Test1 extends TestCase {
 
     }
 
+    /**
+     * Тест для команды /edit
+     * тест падает
+     */
     @Test
     public void testHandleMessageEditCommand() {
         NoteLogic noteLogic = new NoteLogic();
@@ -41,6 +53,10 @@ public class Test1 extends TestCase {
                 noteLogic.handleMessage("/notes"));
     }
 
+    /**
+     * Тест для команды /del
+     * тест падает!
+     */
     @Test
     public void testHandleMessageDeleteCommand() {
         NoteLogic noteLogic = new NoteLogic();
